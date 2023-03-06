@@ -1,0 +1,28 @@
+version: '3'
+
+networks:
+  salaries_net:
+    driver: bridge
+
+services:
+  db:
+    image: db-salaries:v1
+    networks:
+      - salaries_net
+    ports:
+      - "5433:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  api:
+    image: api-salaries:v1
+    networks:
+      - salaries_net
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URI=postgresql://postgres:password@db:5432/mydatabase
+      - BASE_URL=http://127.0.0.1:1337/salaries
+    ports:
+      - "1337:1337"
+volumes:
+  db-data:
