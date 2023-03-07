@@ -6,7 +6,7 @@ networks:
 
 services:
   db:
-    image: db-salaries:v1
+    image: ochoajuanm/db-salaries:v1
     networks:
       - salaries_net
     ports:
@@ -14,7 +14,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
   api:
-    image: api-salaries:v1
+    image: ochoajuanm/api-salaries:v1
     networks:
       - salaries_net
     depends_on:
